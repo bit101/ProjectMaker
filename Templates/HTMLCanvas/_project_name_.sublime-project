@@ -2,14 +2,28 @@
 	"folders":
 	[
 		{
-			"path": "${project_path}"
+			"path": "."
 		}
 	],
 	"build_systems":
 	[
 		{
 			"name":"Browser",
-			"cmd":["/usr/bin/google-chrome", "$project_path/index.html"]
+
+			"linux":
+			{
+				"cmd":["/usr/bin/google-chrome", "$project_path/index.html"]
+			},
+			
+			"osx":
+			{
+				"cmd":["open", "$project_path/index.html"]
+			},
+
+			"windows":
+			{
+				"cmd":["chrome", "$project_path/index.html"]
+			}
 		}
 	]
 }
