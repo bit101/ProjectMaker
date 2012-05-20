@@ -68,9 +68,3 @@ Project path is `/foo/bar/baz/MyProject/`
 `project_path` will be replaced by `/foo/bar/baz/MyProject/`
 
 `project_name` will be replaced by `MyProject`
-
-### TODO:
-
-Windows paths need some work. Apparently Sublime likes them in the form of `/C/foo/bar/` rather than `C:\foo\bar\`. 
-
-Also on Windows, default path to projects is now `C:\Documents and Settings\<username>\ProjectName` rather than `C:\Documents and Settings\<username>\My Documents\ProjectName` where it probably should be going.
