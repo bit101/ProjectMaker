@@ -22,7 +22,7 @@
 
 			"windows":
 			{
-				"cmd":["chrome", "$project_path/index.html"]
+				"cmd":["cmd", "/c", "start", "index.html"]
 			}
 		}
 	]
