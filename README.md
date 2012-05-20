@@ -27,7 +27,7 @@ Newly created project folder will open in system file manager.
 
 ## Creating and Modifying Templates
 
-A template is simply a folder stored in `&lt;sublime packages dir&gt;/SublimeProjectMaker/Templates/`. It can contain any number and types of files and nested folders of files.
+A template is simply a folder stored in `<sublime packages dir>/SublimeProjectMaker/Templates/`. It can contain any number and types of files and nested folders of files.
 
 ### Tokens
 
@@ -43,15 +43,15 @@ when supplied a value of `Keith` for the `user_name` token will become:
 
 ### Tokenized File Names
 
-Template file names may also be tokenized using the form _token_name_.ext. The leading underscore, token name and trailing underscore will be replaced by the value given.
+Template file names may also be tokenized using the form `_token_name_.ext`. The leading underscore, token name and trailing underscore will be replaced by the value given.
 
 Example:
 
-	_info_file_.text
+	/foo/bar/baz/_info_file_.text
 
-when supplied with a value of `foo` for the `_info_file_` token will become:
+when supplied with a value of `data` for the `info_file` token will become:
 
-	foo.text
+	/foo/bar/baz/data.text
 
 ### Predefined Tokens
 
