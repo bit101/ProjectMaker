@@ -5,7 +5,7 @@ A Sublime Text 2 plug-in to allow creating any kind of project from your own cus
 
 ## Installation
 
-Clone or download this project into a folder named "SublimeProjectMaker" in your Sublime Text 2 Packages folder.
+Clone or download this project into a folder named "SublimeProjectMaker" in your Sublime Text 2 Packages folder. If you're not sure where your Packages folder is, use menu `Preferences/Browse Packages...`
 
 Optionally, set up a key binding. I like to override Control-Shift-N in menu `Preferences/Key Bindings - User`
 
@@ -68,3 +68,9 @@ Project path is `/foo/bar/baz/MyProject/`
 `project_path` will be replaced by `/foo/bar/baz/MyProject/`
 
 `project_name` will be replaced by `MyProject`
+
+### TODO:
+
+Windows paths need some work. Apparently Sublime likes them in the form of `/C/foo/bar/` rather than `C:\foo\bar\`. 
+
+Also on Windows, default path to projects is now `C:\Documents and Settings\<username>\ProjectName` rather than `C:\Documents and Settings\<username>\My Documents\ProjectName` where it probably should be going.
