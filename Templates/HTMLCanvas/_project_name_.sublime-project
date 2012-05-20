@@ -1,0 +1,15 @@
+{
+	"folders":
+	[
+		{
+			"path": "${project_path}"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name":"Browser",
+			"cmd":["/usr/bin/google-chrome", "$project_path/index.html"]
+		}
+	]
+}
