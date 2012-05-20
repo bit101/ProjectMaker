@@ -29,7 +29,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 		if sublime.platform() == "windows":
 			default_project_path = os.path.expanduser("~\\My Documents\\" + self.project_name)
 		else:
-			default_project_path = os.path.normcase(os.path.expanduser("~/" + self.project_name))
+			default_project_path = os.path.expanduser("~/" + self.project_name)
 		self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
 
 	def on_project_path(self, path):
@@ -75,7 +75,6 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 				self.tokens.append(token)
 
 	def get_tokens_from_file(self, file_path):
-		print file_path
 		file_ref = open(file_path, "rU")
 		content = file_ref.read()
 		file_ref.close()
