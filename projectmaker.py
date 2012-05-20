@@ -27,7 +27,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def get_project_path(self):
 		self.project_name = "My" + self.chosen_template_name + "Project"
 		if sublime.platform() == "windows":
-			default_project_path = os.path.normcase(os.path.expanduser("~\\My Documents\\" + self.project_name))
+			default_project_path = os.path.expanduser("~\\My Documents\\" + self.project_name)
 		else:
 			default_project_path = os.path.normcase(os.path.expanduser("~/" + self.project_name))
 		self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
