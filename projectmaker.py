@@ -10,7 +10,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def choose_template(self):
 		files = self.get_templates()
 		for file_name in files:
-			if os.path.isdir(os.path.join(self.templates_path)):
+			if os.path.isdir(os.path.join(self.templates_path, file_name)):
 				self.template_names.append(file_name)
 		self.window.show_quick_panel(self.template_names, self.on_template_chosen)
 
@@ -29,7 +29,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 		if sublime.platform() == "windows":
 			default_project_path = os.path.expanduser("~\\My Documents\\" + self.project_name)
 		else:
-			default_project_path = os.path.expanduser("~/" + self.project_name)
+			default_project_path = os.path.expanduser("~/Documents/" + self.project_name)
 		self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
 
 	def on_project_path(self, path):
