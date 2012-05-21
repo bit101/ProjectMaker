@@ -1,0 +1,40 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>${project_name} / QUnit Test Suite</title>  
+    <link rel="stylesheet" href="style/qunit.css" type="text/css">  
+    <script src="../lib/require.js"></script>
+    <script src="lib/qunit.js"></script> 
+    <script src="lib/sinon.js"></script>
+    <script>
+        "use strict";
+        // Snippet from: https://gist.github.com/920405
+        // Because: http://requirejs.org/docs/errors.html#mismatch
+
+        // Main file for loading RequireJS necessary bits
+        QUnit.config.autostart = false;
+
+        define.amd.jQuery = true;
+        require.config({
+            baseUrl: ".",
+            paths: {
+                "lib": "../lib",
+                "script": "../script",
+                "test": "./script",
+                "jquery": "../lib/jquery"
+            }
+        });
+
+        requirejs(['test/SampleTest'], function() {
+            QUnit.start(); // Tests loaded, run tests
+        });
+    </script>
+</head>  
+<body>  
+    <h1 id="qunit-header">${project_name} Test Suite</h1>  
+    <h2 id="qunit-banner"></h2>  
+    <div id="qunit-testrunner-toolbar"></div>  
+    <h2 id="qunit-userAgent"></h2>  
+    <ol id="qunit-tests"></ol>  
+</body>  
+</html>  
