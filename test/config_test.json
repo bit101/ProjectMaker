@@ -1,0 +1,14 @@
+{
+	"files": [
+		{
+			"name": "jquery",
+			"url": "http://code.jquery.com/jquery-latest.js",
+			"locations": ["libs"]
+		},
+		{
+			"name": "require",
+			"url": "https://raw.github.com/jrburke/requirejs/master/require.js",
+			"locations": ["libs"]
+		}
+	]
+}

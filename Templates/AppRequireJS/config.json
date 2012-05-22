@@ -1,0 +1,34 @@
+{
+	"files": [
+		{
+			"name": "jquery",
+			"url": "http://code.jquery.com/jquery-latest.js",
+			"locations": ["libs"]
+		},
+		{
+			"name": "require",
+			"url": "https://raw.github.com/jrburke/requirejs/master/require.js",
+			"locations": ["libs"]
+		},
+		{
+			"name": "modernizr",
+			"url": "http://modernizr.com/downloads/modernizr.js",
+			"locations": ["libs"]
+		},
+		{
+			"name": "qunit",
+			"url": "https://raw.github.com/jquery/qunit/master/qunit/qunit.js",
+			"locations": ["test/lib"]
+		},
+		{
+			"name": "sinon",
+			"url": "https://raw.github.com/cjohansen/Sinon.JS/master/lib/sinon.js",
+			"locations": ["test/lib"]
+		},
+		{
+			"name": "qunit",
+			"url": "https://raw.github.com/jquery/qunit/master/qunit/qunit.css",
+			"locations": ["test/style"]
+		}
+	]
+}
