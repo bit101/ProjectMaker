@@ -68,3 +68,7 @@ Project path is `/foo/bar/baz/MyProject/`
 `project_path` will be replaced by `/foo/bar/baz/MyProject/`
 
 `project_name` will be replaced by `MyProject`
+
+### Sublime Project files
+
+If the chosen template has a `.sublime-project` file in the top level, that file will be copied over and processed like any other file in the template. However, if this does not exist, a default `.sublime-project` file will be created using the `project_name` token as its base name. 
