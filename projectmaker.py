@@ -121,6 +121,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def customize_project(self):
 		self.replace_tokens()
 		self.rename_files()
+		self.find_project_file()
 		self.window.run_command("open_dir", {"dir":self.project_path});
 
 	def replace_tokens(self):
@@ -149,3 +150,27 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 					if r.search(file_path):
 						os.rename(file_path, r.sub(value, file_path))
 						break
+
+	def find_project_file(self):
+		files = os.listdir(self.project_path)
+		r = re.compile(r".*\.sublime-project")
+		self.project_file = None
+		for file_name in files:
+			if r.search(file_name):
+				self.project_file = os.path.join(self.project_path, file_name)
+		if self.project_file == None:
+			self.create_project_file()
+
+	def create_project_file(self):
+		file_name = self.project_name + ".sublime-project"
+		self.project_file = os.path.join(self.project_path, file_name)
+		file_ref = open(self.project_file, "w")
+		file_ref.write(("{\n"
+						"    \"folders\":\n"
+						"    [\n"
+						"        {\n"
+						"            \"path\": \".\"\n"
+						"        }\n"
+						"    ]\n"
+						"}\n"));
+		file_ref.close()
