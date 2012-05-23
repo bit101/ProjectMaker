@@ -72,3 +72,11 @@ Project path is `/foo/bar/baz/MyProject/`
 ### Sublime Project files
 
 If the chosen template has a `.sublime-project` file in the top level, that file will be copied over and processed like any other file in the template. However, if this does not exist, a default `.sublime-project` file will be created using the `project_name` token as its base name. 
+
+### Ignored Files
+
+Obviously, you don't want to try to do token replacement in binary files. The plug-in has a list of file types that it will ignore when doing token replacement, currently this includes:
+
+	".jpg", ".gif", ".png", ".bmp", ".swf", ".swc", ".fla", ".mp3", ".mp4", ".ogg", ".m4v", ".wav"
+
+I assume this will grow as requests for more types come in. You can always add your own. The list is at the top of `projectmaker.py`. Note, these files _will_ be copied into the project. They will just not be parsed for tokens.
