@@ -1,4 +1,5 @@
 import sublime, sublime_plugin, os, shutil, re
+from configuration import ConfigurationReader
 
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def run(self):
@@ -122,6 +123,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 		self.replace_tokens()
 		self.rename_files()
 		self.find_project_file()
+		self.read_configuration()
 		self.window.run_command("open_dir", {"dir":self.project_path});
 
 	def replace_tokens(self):
@@ -174,3 +176,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 						"    ]\n"
 						"}\n"));
 		file_ref.close()
+
+	def read_configuration(self):
+		config_file = os.path.join(self.chosen_template_path, 'config.json')
+		if os.path.exists(config_file):
+			ConfigurationReader().read(config_file, self.project_path)
