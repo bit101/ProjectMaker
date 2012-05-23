@@ -10,7 +10,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def choose_template(self):
 		files = self.get_templates()
 		for file_name in files:
-			if os.path.isdir(os.path.join(self.templates_path)):
+			if os.path.isdir(os.path.join(self.templates_path, file_name)):
 				self.template_names.append(file_name)
 		self.window.show_quick_panel(self.template_names, self.on_template_chosen)
 
@@ -29,7 +29,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 		if sublime.platform() == "windows":
 			default_project_path = os.path.expanduser("~\\My Documents\\" + self.project_name)
 		else:
-			default_project_path = os.path.normcase(os.path.expanduser("~/" + self.project_name))
+			default_project_path = os.path.expanduser("~/Documents/" + self.project_name)
 		self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
 
 	def on_project_path(self, path):
@@ -75,7 +75,6 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 				self.tokens.append(token)
 
 	def get_tokens_from_file(self, file_path):
-		print file_path
 		file_ref = open(file_path, "rU")
 		content = file_ref.read()
 		file_ref.close()
@@ -122,6 +121,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def customize_project(self):
 		self.replace_tokens()
 		self.rename_files()
+		self.find_project_file()
 		self.window.run_command("open_dir", {"dir":self.project_path});
 
 	def replace_tokens(self):
@@ -150,3 +150,27 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 					if r.search(file_path):
 						os.rename(file_path, r.sub(value, file_path))
 						break
+
+	def find_project_file(self):
+		files = os.listdir(self.project_path)
+		r = re.compile(r".*\.sublime-project")
+		self.project_file = None
+		for file_name in files:
+			if r.search(file_name):
+				self.project_file = os.path.join(self.project_path, file_name)
+		if self.project_file == None:
+			self.create_project_file()
+
+	def create_project_file(self):
+		file_name = self.project_name + ".sublime-project"
+		self.project_file = os.path.join(self.project_path, file_name)
+		file_ref = open(self.project_file, "w")
+		file_ref.write(("{\n"
+						"    \"folders\":\n"
+						"    [\n"
+						"        {\n"
+						"            \"path\": \".\"\n"
+						"        }\n"
+						"    ]\n"
+						"}\n"));
+		file_ref.close()
