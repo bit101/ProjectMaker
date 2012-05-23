@@ -1,0 +1,62 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"build_systems":
+	[
+		{
+			"linux":
+			{
+				"cmd":["/usr/bin/google-chrome", "$project_path/index.html"]
+			},
+			
+			"osx":
+			{
+				"cmd":
+				[
+					"open",
+					"-a",
+					"/Applications/Safari.app/Contents/MacOS/Safari",
+					"$project_path/index.html"
+				]
+			},
+			"windows":
+			{
+				"cmd":["cmd", "/c", "start", "index.html"]
+			},
+			"name": "Launch"
+		},
+		{
+			"cmd":
+			[
+				"open",
+				"-a",
+				"/Applications/Safari.app/Contents/MacOS/Safari",
+				"$project_path/test/index.html"
+			],
+			"name": "Test"
+		},
+		{
+			"selector": "source.js",
+			"cmd": 
+			[
+			  	"jshint", 
+			  	"$file", 
+			  	"--reporter", 
+			  	"$packages/JSHint/reporter.js"
+			],
+			"file_regex": "file:\\s(.+)\\]",
+			"line_regex": "(\\d+),(\\d+)",
+			"osx": {
+				"path": "/usr/local/bin"
+			},
+			"windows": {
+			    "cmd": ["jshint.cmd", "$file", "--reporter", "$packages\\JSHint\\reporter.js"]
+			},
+			"name": "JSLint"
+		}
+	]
+}
