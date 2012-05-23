@@ -1,0 +1,57 @@
+{
+	"non_parsed": [
+		".jpg", 
+		".jpeg",
+		".tiff",
+		".gif", 
+		".png", 
+		".bmp",
+		".svg",
+		".eps",
+		".pdf",
+		".ai",
+		".ps",
+		".psd",
+		".ico",
+
+		".swf", 
+		".swc",
+		".fla",
+		".flv",
+
+		".mp3", 
+		".mp4", 
+		".ogg", 
+		".m4v",
+		".wav",
+		".m3u",
+		".mpeg",
+		".mpg",
+		".mov",
+		".mkv",
+		".avi",
+
+		".jar",
+		".apk",
+		".zip",
+		".7z",
+		".tar",
+		".rar",
+		".gz",
+		".bz",
+		".docx",
+		".dmg",
+		".iso",
+		".exe",
+		".app",
+		".dll",
+
+		".git",
+		".svn",
+
+		".ttf",
+		".otf",
+		".woff"
+
+	]
+}

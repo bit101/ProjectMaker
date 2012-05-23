@@ -3,7 +3,8 @@ from configuration import ConfigurationReader
 
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		self.non_parsed = [".jpg", ".gif", ".png", ".bmp", ".swf", ".swc", ".fla", ".mp3", ".mp4", ".ogg", ".m4v", ".wav"]
+		settings = sublime.load_settings("SublimeProjectMaker.sublime-settings")
+		self.non_parsed = settings.get("non_parsed")
 		self.plugin_path = os.path.join(sublime.packages_path(), "SublimeProjectMaker")
 		self.templates_path = os.path.join(self.plugin_path, "Templates")
 		self.template_names = []
@@ -62,7 +63,6 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 		for file_name in files:
 			ext = os.path.splitext(file_name)[1];
 			if ext in self.non_parsed:
-				print "skipping" + file_name
 				continue
 			file_path = os.path.join(path, file_name)
 			self.get_token_from_file_name(path, file_name)
