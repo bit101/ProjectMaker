@@ -1,13 +1,18 @@
 """ File task helper for configurations in SublimeProjectMaker """
 
-import urllib2, os, errno
+import urllib2, os, errno, sublime
+from urllib2 import URLError
 
 class RemoteFileFetchTask:
 	""" Reads in file objects in the following format and downloads them to disk: {'name':'str', 'url':'str', 'locations':['str']} """
 
 	def read_file(self, url):
-		response = urllib2.urlopen(url)
-		return response.read()
+		try:
+			response = urllib2.urlopen(url)
+			return response.read()
+		except URLError, e:
+			sublime.error_message("Unable to download:\n " + url + "\nReason:\n " + e.reason + "\nNote: Sublime Text 2 on Linux cannot deal with https urls.")
+		return None
 
 	def write_file(self, contents, to_file_path):
 		with open(to_file_path, 'w') as f:
@@ -22,6 +27,8 @@ class RemoteFileFetchTask:
 			file_name = file_obj['name']
 			locations = file_obj['locations']
 			contents = self.read_file(file_url)
+			if contents == None:
+				return
 			for location in locations:
 				directory = os.path.join(root_path, location)
 				# try to create directory listing if not present.
