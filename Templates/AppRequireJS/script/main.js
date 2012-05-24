@@ -18,10 +18,12 @@
 
 				define.amd.jQuery = true;
 				require.config({
-					base: '.',
-					lib: './lib',
-					script: './script',
-					jquery: './lib/jquery'
+					baseUrl: '.',
+					paths: {
+						lib: './lib',
+						script: './script',
+						jquery: 'lib/jquery'
+					}
 				});
 
 				require( ['jquery'], function( $ ) {

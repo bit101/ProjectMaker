@@ -16,6 +16,11 @@
 			"locations": ["lib"]
 		},
 		{
+			"name": "modernizr.loader",
+			"url": "http://modernizr.com/i/js/modernizr.load.1.5.3.js",
+			"locations": ["lib"]
+		},
+		{
 			"name": "qunit",
 			"url": "https://raw.github.com/jquery/qunit/master/qunit/qunit.js",
 			"locations": ["test/lib"]
