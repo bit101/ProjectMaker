@@ -1,21 +1,24 @@
 """ File task helper for configurations in SublimeProjectMaker """
 
-import urllib2, os, errno, sublime
+import urllib2, os, errno
+import sublime
 from urllib2 import URLError
+
+class DownloadError(Exception):
+	def __init__(self, value):
+		self.value = value
+	def __str__(self):
+		return repr(self.value)
 
 class RemoteFileFetchTask:
 	""" Reads in file objects in the following format and downloads them to disk: {'name':'str', 'url':'str', 'locations':['str']} """
-
-	def __init__(self):
-		self.exceptions = []
 
 	def read_file(self, url):
 		try:
 			response = urllib2.urlopen(url)
 			return response.read()
 		except URLError, e:
-			sublime.error_message("Unable to download:\n " + url + "\nReason:\n " + e.reason + "\nNote: Sublime Text 2 on Linux cannot deal with https urls.")
-			raise e
+			raise DownloadError(e.reason)
 		
 	def write_file(self, contents, to_file_path):
 		with open(to_file_path, 'w') as f:
@@ -24,6 +27,7 @@ class RemoteFileFetchTask:
 			return os.path.exists(to_file_path)
 
 	def execute(self, filelist, root_path):
+		exceptions = []
 		for file_obj in filelist:
 			file_url = file_obj['url']
 			file_ext = os.path.splitext(file_url)[1]
@@ -32,8 +36,9 @@ class RemoteFileFetchTask:
 
 			try:
 				contents = self.read_file(file_url)
-			except URLError, e:
-				self.exceptions.append('Could not load ' + file_url + '. [Reason]: ' + str(e))
+			except DownloadError as e:
+				exceptions.append('Could not load ' + file_url + '. [Reason]: ' + e.value)
+				sublime.error_message("Unable to download:\n " + file_url + "\nReason:\n " + e.value + "\nNote: Sublime Text 2 on Linux cannot deal with https urls.")
 				continue
 
 			for location in locations:
@@ -48,5 +53,5 @@ class RemoteFileFetchTask:
 				# write to location.
 				filepath = os.path.join(directory, file_name + '.' + file_ext)
 				self.write_file(contents, filepath)
-				
-		return self.exceptions
+
+		return exceptions

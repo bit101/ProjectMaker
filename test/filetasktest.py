@@ -1,4 +1,5 @@
 """ Unit tests for configuration.py and filetask.py from SublimeProjectMaker project. """
+""" [NOTE] filetask module imports sublime for error handling within the Sublime Text 2 IDE. Comment references to sublime to run tests properly. """
 
 import sys, os, json, shutil, unittest
 sys.path.append('../')
