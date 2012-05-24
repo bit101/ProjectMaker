@@ -51,7 +51,7 @@ class RemoteFileFetchTask:
 					if e.errno != errno.EEXIST:
 						raise e
 				# write to location.
-				filepath = os.path.join(directory, file_name + '.' + file_ext)
+				filepath = os.path.join(directory, file_name + file_ext)
 				self.write_file(contents, filepath)
 
 		return exceptions
