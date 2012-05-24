@@ -1,4 +1,5 @@
 """ Unit tests for configuration.py and filetask.py from SublimeProjectMaker project. """
+""" [NOTE] filetask module imports sublime for error handling within the Sublime Text 2 IDE. Comment references to sublime to run tests properly. """
 
 import sys, os, json, shutil, unittest
 sys.path.append('../')
@@ -79,6 +80,11 @@ class TestFileTask(unittest.TestCase):
 				shutil.rmtree(to_dir)
 			except Exception, e:
 				raise e
+
+	def test_exceptions_from_execute(self):
+		files = [{'url':'httpf://code.jquery.com/jquery-latest.js', 'name':'badurltest', 'locations':[]}]
+		exceptions = self.__class__.task.execute(files, os.curdir)
+		self.assertEqual(len(exceptions), 1)
 
 suite = unittest.TestSuite()
 suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestConfigurationLoad))

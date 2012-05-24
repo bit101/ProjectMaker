@@ -1,6 +1,7 @@
 """ Configuration helper for SublimeProjectMaker """
 
-import json
+import json, os
+import sublime
 from filetask import RemoteFileFetchTask 
 
 class ConfigurationReader:
@@ -24,5 +25,17 @@ class ConfigurationReader:
 		# Iterate through task list and run associated task.
 		for key, value in self.tasks.iteritems():
 			if key.lower() == 'files':
-				self.file_task.execute(configuration['files'], destination_path)
+				exceptions = self.file_task.execute(configuration['files'], destination_path)
+				if exceptions is not None and len(exceptions) > 0:
+					build_filename = 'SublimeProjectMaker_build.log'
+					message = 'The following problems occured from FileTask:\n'
+					exception_iter = iter(exceptions)
+					f = open(os.path.join(destination_path, build_filename), "w")
+					try:
+						message += str(exception_iter.next()) + '\n'
+					except StopIteration, e:
+						pass
+					f.write(message)
+					f.close()
+
 		return configuration
