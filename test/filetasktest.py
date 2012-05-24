@@ -80,6 +80,11 @@ class TestFileTask(unittest.TestCase):
 			except Exception, e:
 				raise e
 
+	def test_exceptions_from_execute(self):
+		files = [{'url':'httpf://code.jquery.com/jquery-latest.js', 'name':'badurltest', 'locations':[]}]
+		exceptions = self.__class__.task.execute(files, os.curdir)
+		self.assertEqual(len(exceptions), 1)
+
 suite = unittest.TestSuite()
 suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestConfigurationLoad))
 suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestFileTask))
