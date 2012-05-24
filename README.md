@@ -76,3 +76,11 @@ If the chosen template has a `.sublime-project` file in the top level, that file
 ### Ignored Files
 
 Obviously, you don't want to try to do token replacement in binary files. The plug-in has a long list of file types that it will ignore when doing token replacement. You can always add your own if any files in your templates cause a problem. The list is contained in the `SublimeProjectMaker.sublime-settings` file. Note, these files _will_ be copied into the project. They will just not be parsed for tokens.
+
+### Auto File Downloading and Other Tasks
+
+Todd Anderson (`http://custardbelly.com/blog/`) has created an additional configuration feature that I have added to the project. This allows additional functions to be run after the project is created to perform additional tasks. 
+
+The one task it is currently capable of performing is downloading files and adding them to your project. This can be useful if you want every project you create to have the latest version of a particular library such as jQuery. The files to download are defined with a `config.json` file in the template. You can see an example of how this works in the `AppRequire.js` template. Known issue: the file task will fail on https urls under Linux. This is because the version of Python bundled with Sublime Text 2 under Linux does not include the ssl module for reasons I am not quite clear on.
+
+Note that if your template does not have a `config.json` file, this step will be ignored. Additional tasks can be created following the current example. Thus, it is sort of plug-in for a plug-in.
