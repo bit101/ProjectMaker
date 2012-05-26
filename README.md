@@ -1,11 +1,11 @@
-SublimeProjectMaker
+STProjectMaker
 ===================
 
 A Sublime Text 2 plug-in to allow creating any kind of project from your own custom templates.
 
 ## Installation
 
-Clone or download this project into a folder named "SublimeProjectMaker" in your Sublime Text 2 Packages folder. If you're not sure where your Packages folder is, use menu `Preferences/Browse Packages...`
+Clone or download this project into a folder named "STProjectMaker" in your Sublime Text 2 Packages folder. If you're not sure where your Packages folder is, use menu `Preferences/Browse Packages...`
 
 Optionally, set up a key binding. I like to override Control-Shift-N in menu `Preferences/Key Bindings - User`
 
@@ -27,7 +27,7 @@ Newly created project folder will open in system file manager.
 
 ## Creating and Modifying Templates
 
-A template is simply a folder stored in `<sublime packages dir>/SublimeProjectMaker/Templates/`. It can contain any number and types of files and nested folders of files.
+A template is simply a folder stored in `<sublime packages dir>/STProjectMaker/Templates/`. It can contain any number and types of files and nested folders of files.
 
 ### Tokens
 
