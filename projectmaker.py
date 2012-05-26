@@ -3,7 +3,7 @@ from configuration import ConfigurationReader
 
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		settings = sublime.load_settings("SublimeProjectMaker.sublime-settings")
+		settings = sublime.load_settings("STProjectMaker.sublime-settings")
 		self.non_parsed = settings.get("non_parsed")
 		self.plugin_path = os.path.join(sublime.packages_path(), "SublimeProjectMaker")
 		self.templates_path = os.path.join(self.plugin_path, "Templates")
