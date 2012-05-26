@@ -27,7 +27,7 @@
 				});
 
 				require( ['jquery'], function( $ ) {
-					$('<p>AppRequireJS template for SublimeProjectMaker.</p>').appendTo( $("#placeholder") );
+					$('<p>AppRequireJS template for STProjectMaker.</p>').appendTo( $("#placeholder") );
 				});
 			}
 		}

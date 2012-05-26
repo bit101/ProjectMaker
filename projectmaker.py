@@ -5,7 +5,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def run(self):
 		settings = sublime.load_settings("STProjectMaker.sublime-settings")
 		self.non_parsed = settings.get("non_parsed")
-		self.plugin_path = os.path.join(sublime.packages_path(), "SublimeProjectMaker")
+		self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
 		self.templates_path = os.path.join(self.plugin_path, "Templates")
 		self.template_names = []
 		self.choose_template()

@@ -1,4 +1,4 @@
-""" Configuration helper for SublimeProjectMaker """
+""" Configuration helper for STProjectMaker """
 
 import json, os
 import sublime
@@ -27,7 +27,7 @@ class ConfigurationReader:
 			if key.lower() == 'files':
 				exceptions = self.file_task.execute(configuration['files'], destination_path)
 				if exceptions is not None and len(exceptions) > 0:
-					build_filename = 'SublimeProjectMaker_build.log'
+					build_filename = 'STProjectMaker_build.log'
 					message = 'The following problems occured from FileTask:\n'
 					exception_iter = iter(exceptions)
 					f = open(os.path.join(destination_path, build_filename), "w")

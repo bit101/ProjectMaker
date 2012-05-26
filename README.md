@@ -75,7 +75,7 @@ If the chosen template has a `.sublime-project` file in the top level, that file
 
 ### Ignored Files
 
-Obviously, you don't want to try to do token replacement in binary files. The plug-in has a long list of file types that it will ignore when doing token replacement. You can always add your own if any files in your templates cause a problem. The list is contained in the `SublimeProjectMaker.sublime-settings` file. Note, these files _will_ be copied into the project. They will just not be parsed for tokens.
+Obviously, you don't want to try to do token replacement in binary files. The plug-in has a long list of file types that it will ignore when doing token replacement. You can always add your own if any files in your templates cause a problem. The list is contained in the `STProjectMaker.sublime-settings` file. Note, these files _will_ be copied into the project. They will just not be parsed for tokens.
 
 ### Auto File Downloading and Other Tasks
 
