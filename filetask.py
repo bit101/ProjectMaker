@@ -1,4 +1,4 @@
-""" File task helper for configurations in SublimeProjectMaker """
+""" File task helper for configurations in STProjectMaker """
 
 import urllib2, os, errno
 import sublime
