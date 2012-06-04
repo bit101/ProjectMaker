@@ -5,6 +5,14 @@ A Sublime Text 2 plug-in to allow creating any kind of project from your own cus
 
 ## Installation
 
+### Via Package Control:
+
+1. Install Package Control from http://wbond.net/sublime_packages/package_control
+
+2. From within Package Control, look for STPackageMaker and install.
+
+### Manually:
+
 Clone or download this project into a folder named "STProjectMaker" in your Sublime Text 2 Packages folder. If you're not sure where your Packages folder is, use menu `Preferences/Browse Packages...`
 
 Optionally, set up a key binding. I like to override Control-Shift-N in menu `Preferences/Key Bindings - User`
