@@ -4,9 +4,13 @@ from configuration import ConfigurationReader
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def run(self):
 		settings = sublime.load_settings("STProjectMaker.sublime-settings")
+		templates_path_setting = settings.get('template_path')
 		self.non_parsed = settings.get("non_parsed")
 		self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
-		self.templates_path = os.path.join(self.plugin_path, "Templates")
+		if not templates_path_setting:
+			self.templates_path = os.path.join(self.plugin_path, "Templates")
+		else:
+			self.templates_path = os.path.abspath(templates_path_setting)
 		self.template_names = []
 		self.choose_template()
 
