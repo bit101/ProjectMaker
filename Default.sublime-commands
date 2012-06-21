@@ -1,6 +1,6 @@
 [
     {
-        "caption": "STProjectMaker: Create new project",
-        "command": "projekt_maker"
+        "caption": "STProjectMaker: Create project",
+        "command": "project_maker"
     }
 ]
