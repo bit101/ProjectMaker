@@ -1,10 +1,10 @@
 {
 	"non_parsed": [
-		".jpg", 
+		".jpg",
 		".jpeg",
 		".tiff",
-		".gif", 
-		".png", 
+		".gif",
+		".png",
 		".bmp",
 		".svg",
 		".eps",
@@ -14,14 +14,14 @@
 		".psd",
 		".ico",
 
-		".swf", 
+		".swf",
 		".swc",
 		".fla",
 		".flv",
 
-		".mp3", 
-		".mp4", 
-		".ogg", 
+		".mp3",
+		".mp4",
+		".ogg",
 		".m4v",
 		".wav",
 		".m3u",
@@ -46,12 +46,18 @@
 		".app",
 		".dll",
 
+		".hg",
 		".git",
 		".svn",
 
 		".ttf",
 		".otf",
 		".woff"
-
+	],
+	"non_copied": [
+		".DS_Store",
+		".hg",
+		".git",
+		".svn"
 	]
 }

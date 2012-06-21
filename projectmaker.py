@@ -4,6 +4,7 @@ from configuration import ConfigurationReader
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def run(self):
 		settings = sublime.load_settings("STProjectMaker.sublime-settings")
+		self.settings = settings
 		templates_path_setting = settings.get('template_path')
 		self.non_parsed = settings.get("non_parsed")
 		self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
@@ -54,7 +55,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 		self.get_token_values()
 
 	def copy_project(self):
-		shutil.copytree(self.chosen_template_path, self.project_path)
+		ignored = self.settings.get("non_copied")
+		shutil.copytree(self.chosen_template_path, self.project_path, ignore=shutil.ignore_patterns(*ignored))
 
 	def get_tokens(self, path):
 		self.tokens = []
