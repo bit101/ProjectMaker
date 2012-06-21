@@ -1,0 +1,7 @@
+[
+    {
+        "keys": ["ctrl+shift+n"],
+        "__doc__": "Create new project",
+        "command": "project_maker"
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "caption": "STProjectMaker: Create new project",
+        "command": "projekt_maker"
+    },
+    {
+        "caption": "Preferences: STProjectMaker Settings – Default",
+        "command": "open_file", "args":
+        {
+            "file": "${packages}/STProjectMaker/STProjectMaker.sublime-settings"
+        }
+    },
+    {
+        "caption": "Preferences: STProjectMaker Settings – User",
+        "command": "open_file", "args":
+        {
+            "file": "${packages}/User/STProjectMaker.sublime-settings"
+        }
+    }
+]
