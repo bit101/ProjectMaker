@@ -39,19 +39,25 @@ function ${project_name}_permission() {
 }
 
 /**
- * Implements hook_permission().
+ * Implements hook_menu().
  */
-function ${project_name}_permission() {
-  return array(
-    /*
-     *'administer my module' =>  array(
-     *  'title' => t('Administer my module'),
-     *  'description' => t('Perform administration tasks for my module.'),
-     *),
-     */
-    '' =>  array(
-      'title' => t(''),
-      'description' => t(''),
-    ),
+function _project_name__menu() {
+  /*
+   *$items['blog'] = array(
+   *  'title' => 'blogs',
+   *  'page callback' => 'blog_page',
+   *  'access arguments' => array('access content'),
+   *  'type' => MENU_SUGGESTED_ITEM,
+   *);
+   */
+  $items[''] = array(
+    'title' => '',
+    'page callback' => '',
+    'page arguments' => array(),
+    'access arguments' => array(''),
+    'type' => ,
+    'file' => ,
   );
+
+  return $items;
 }
