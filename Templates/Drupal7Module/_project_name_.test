@@ -10,7 +10,7 @@ class ${project_name}TestCase extends DrupalWebTestCase {
   public static function getInfo() {
     return array(
       'name' => '${project_title}',
-      'description' => 'Tests user switching with the ${project_title} module.',
+      'description' => 'Testss for the ${project_title} module.',
       'group' => '${project_title}',
     );
   }
