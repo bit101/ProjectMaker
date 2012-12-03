@@ -26,7 +26,7 @@ function ${project_name}_permission() {
 /**
  * Implements hook_menu().
  */
-function _project_name__menu() {
+function ${project_name}_menu() {
   /*
    *$items['blog'] = array(
    *  'title' => 'blogs',
