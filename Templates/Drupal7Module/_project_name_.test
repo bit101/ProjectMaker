@@ -2,29 +2,5 @@
 
 /**
  * @file
- * ${project_name}.test
- *
  * Tests for ${project_name}.
  */
-class ${project_name}TestCase extends DrupalWebTestCase {
-  public static function getInfo() {
-    return array(
-      'name' => '${project_title}',
-      'description' => 'Testss for the ${project_title} module.',
-      'group' => '${project_title}',
-    );
-  }
-
-  public function setUp() {
-    parent::setUp('${project_name}');
-  }
-
-  public function test${project_name}() {
-    /**
-     * Write test here
-     * See this Simpletest Tutorial for D7:
-     * http://drupal.org/simpletest-tutorial-drupal7
-     */
-  }
-
-}
