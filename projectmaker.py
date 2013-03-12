@@ -1,5 +1,5 @@
 import sublime, sublime_plugin, os, shutil, re
-from configuration import ConfigurationReader
+from STProjectMaker.configuration import ConfigurationReader
 
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
 	def run(self):
