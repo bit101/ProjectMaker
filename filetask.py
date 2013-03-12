@@ -1,8 +1,8 @@
 """ File task helper for configurations in STProjectMaker """
 
-import urllib2, os, errno
+import urllib.request, urllib.error, urllib.parse, os, errno
 import sublime
-from urllib2 import URLError
+from urllib.error import URLError
 
 class DownloadError(Exception):
 	def __init__(self, value):
@@ -15,9 +15,9 @@ class RemoteFileFetchTask:
 
 	def read_file(self, url):
 		try:
-			response = urllib2.urlopen(url)
+			response = urllib.request.urlopen(url)
 			return response.read()
-		except URLError, e:
+		except URLError as e:
 			raise DownloadError(e.reason)
 		
 	def write_file(self, contents, to_file_path):
@@ -46,7 +46,7 @@ class RemoteFileFetchTask:
 				# try to create directory listing if not present.
 				try:
 					os.makedirs(directory)
-				except OSError, e:
+				except OSError as e:
 					# if it is just reporting that it exists, fail silently.
 					if e.errno != errno.EEXIST:
 						raise e
