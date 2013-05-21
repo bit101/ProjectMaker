@@ -2,19 +2,24 @@ import sublime, sublime_plugin, os, shutil, re
 from configuration import ConfigurationReader
 
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
-	def run(self):
+	def run(self,paths=False,template=False):
 		settings = sublime.load_settings("STProjectMaker.sublime-settings")
 		self.non_parsed = settings.get("non_parsed")
 		self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
 		self.templates_path = os.path.join(self.plugin_path, "Templates")
 		self.template_names = []
-		self.choose_template()
-
-	def choose_template(self):
+		self.paths = paths
 		files = self.get_templates()
 		for file_name in files:
 			if os.path.isdir(os.path.join(self.templates_path, file_name)):
 				self.template_names.append(file_name)
+		if template:
+			self.on_template_chosen(self.template_names.index(template))
+		else:
+			self.choose_template()
+
+
+	def choose_template(self):
 		self.window.show_quick_panel(self.template_names, self.on_template_chosen)
 
 	def get_templates(self):
@@ -29,10 +34,16 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
 	def get_project_path(self):
 		self.project_name = "My" + self.chosen_template_name + "Project"
-		if sublime.platform() == "windows":
-			default_project_path = os.path.expanduser("~\\My Documents\\" + self.project_name)
+		if self.paths:
+			if sublime.platform() == "windows":
+				default_project_path = os.path.expanduser(self.paths[0] + '\\' + self.project_name)
+			else:
+				default_project_path = os.path.expanduser(self.paths[0] + '/' + self.project_name)
 		else:
-			default_project_path = os.path.expanduser("~/Documents/" + self.project_name)
+			if sublime.platform() == "windows":
+				default_project_path = os.path.expanduser("~\\My Documents\\" + self.project_name)
+			else:
+				default_project_path = os.path.expanduser("~/Documents/" + self.project_name)
 		self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
 
 	def on_project_path(self, path):
