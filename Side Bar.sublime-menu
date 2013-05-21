@@ -1,0 +1,13 @@
+[
+	{ "caption": "-" },
+	{
+		"caption": "ProjectMaker",
+		"children":
+		[
+			{ "caption": "Drupal 7 Module", "command": "project_maker", "args": {"paths": [],"template":"Drupal7Module"} },
+			{ "caption": "App RequireJS", "command": "project_maker", "args": {"paths": [],"template":"AppRequireJS"} },
+			{ "caption": "HTML Canvas", "command": "project_maker", "args": {"paths": [],"template":"HTMLCanvas"} }
+		]
+	},
+	{ "caption": "-" }
+]
