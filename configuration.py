@@ -2,7 +2,7 @@
 
 import json, os
 import sublime
-from filetask import RemoteFileFetchTask 
+from STProjectMaker.filetask import RemoteFileFetchTask 
 
 class ConfigurationReader:
 	""" Reads JSON file configuration and executes associated tasks. """
@@ -23,7 +23,7 @@ class ConfigurationReader:
 	def read(self, filepath, destination_path):
 		configuration = self.load_config(filepath)
 		# Iterate through task list and run associated task.
-		for key, value in self.tasks.iteritems():
+		for key, value in self.tasks.items():
 			if key.lower() == 'files':
 				exceptions = self.file_task.execute(configuration['files'], destination_path)
 				if exceptions is not None and len(exceptions) > 0:
@@ -32,8 +32,8 @@ class ConfigurationReader:
 					exception_iter = iter(exceptions)
 					f = open(os.path.join(destination_path, build_filename), "w")
 					try:
-						message += str(exception_iter.next()) + '\n'
-					except StopIteration, e:
+						message += str(next(exception_iter)) + '\n'
+					except StopIteration as e:
 						pass
 					f.write(message)
 					f.close()
