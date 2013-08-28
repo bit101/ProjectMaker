@@ -37,7 +37,7 @@ Newly created project folder will open in system file manager.
 
 A template is simply a folder stored in `<sublime packages dir>/STProjectMaker/Templates/`. It can contain any number and types of files and nested folders of files.
 
-There are a couple of sample templates at [https://github.com/bit101/STProjectMaker/tree/master/Templates](https://github.com/bit101/STProjectMaker/tree/master/Templates) to get you started. Just copy the files into that directory.
+Note that the template directory is not automatically created and no templates are automatically installed in ST3. You will have to create the directory and put your templates there. There are a couple of sample templates at [https://github.com/bit101/STProjectMaker/tree/master/Templates](https://github.com/bit101/STProjectMaker/tree/master/Templates) to get you started. Just copy the files into that directory.
 
 ### Tokens
 
