@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * ${project_description}
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function ${project_name}_permission() {
+  return array(
+    // 'administer my module' =>  array(
+    // 'title' => t('Administer my module'),
+    // 'description' => t('Perform administration tasks for my module.'),
+    // ),
+    '' => array(
+      'title' => t(''),
+      'description' => t(''),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function ${project_name}_menu() {
+  // $items['blog'] = array(
+  // 'title' => 'blogs',
+  // 'page callback' => 'blog_page',
+  // 'access arguments' => array('access content'),
+  // 'type' => MENU_SUGGESTED_ITEM,
+  // );
+  $items[''] = array(
+    'title' => '',
+    'page callback' => '',
+    'page arguments' => array(),
+    'access arguments' => array(''),
+    'type' => ,
+    'file' => ,
+  );
+
+  return $items;
+}

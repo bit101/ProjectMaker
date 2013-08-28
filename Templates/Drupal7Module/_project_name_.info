@@ -1,0 +1,29 @@
+name = ${project_title}
+description = ${project_description}
+core = 7.x
+
+; PHP version requirement (optional)
+; php = 5.2
+
+; Package name (see http://drupal.org/node/542202 for a list of names)
+; package = example
+
+; Module style sheets and scripts
+; stylesheets[all][] = ${project_name}.css
+; scripts[] = ${project_name}.js
+
+; Loadable code files
+; files[] = ${project_name}.admin.inc
+; files[] = ${project_name}.test
+
+; Module dependencies
+; dependencies[] = module_name
+; dependencies[] = module_name (1.0)
+; dependencies[] = module_name (>=1.0)
+; dependencies[] = module_name (1.x)
+
+; Configuration page
+; configure = admin/config/content/${project_name}
+
+; For further information about configuration options, see
+; - http://drupal.org/node/542202

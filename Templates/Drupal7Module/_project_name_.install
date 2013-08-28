@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * ${project_name}.install
+ *
+ * Install, update and uninstall functions for the ${project_name} module.
+ */
