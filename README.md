@@ -3,7 +3,7 @@ STProjectMaker
 
 A Sublime Text 2/3 plug-in to allow creating any kind of project from your own custom templates. 
 
-Note, now works with BOTH ST2 and ST3! Thanks to [https://github.com/phyllisstein](Daniel Shannon) for that work.
+Note, now works with BOTH ST2 and ST3! Thanks to [Daniel Shannon](https://github.com/phyllisstein) for that work.
 
 ## Installation
 
