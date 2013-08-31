@@ -15,13 +15,9 @@ A Sublime Text 3 plug-in to allow creating any kind of project from your own cus
 
 Clone or download this project into a folder named "STProjectMaker" in your Sublime Text 3 Packages folder. If you're not sure where your Packages folder is, use menu `Preferences/Browse Packages...`
 
-Optionally, set up a key binding. I like to override Control-Shift-N in menu `Preferences/Key Bindings - User`
-
-	[
-		{ "keys": ["ctrl+shift+n"], "command": "project_maker" }
-	]
-
 ## Usage
+
+From the Project Menu, choose "Create Project" or use the shortcut key Ctrl-Shift-N to invoke the project maker command.
 
 Invoking the command will show a Quick Panel list of available templates.
 
@@ -37,7 +33,12 @@ Newly created project folder will open in system file manager.
 
 A template is simply a folder stored in `<sublime packages dir>/STProjectMaker/Templates/`. It can contain any number and types of files and nested folders of files.
 
-Note that if you use Package Control to install STProjectMaker in Sublime Text 3, the template directory is not automatically created and no templates are automatically installed. You will have to create the directory and put your templates there. There are a couple of sample templates at [https://github.com/bit101/STProjectMaker/tree/master/Templates](https://github.com/bit101/STProjectMaker/tree/master/Templates) to get you started. Just copy the files into that directory.
+If you want to store your templates in a different place, add a "template_path" property to STProjectMaker.sublime-settings in the form:
+	{
+		"template_path": "path/to/your/templates/"
+	}
+	
+There are a few sample templates in the Sample-Templates directory. You can just copy those into Templates to use them.
 
 ### Tokens
 
