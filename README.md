@@ -1,7 +1,9 @@
 STProjectMaker
 ===================
 
-A Sublime Text 3 plug-in to allow creating any kind of project from your own custom templates. Note, the changes to make this compatible with ST3 have made the package incompatible with ST2. Fact of life.
+A Sublime Text 2/3 plug-in to allow creating any kind of project from your own custom templates. 
+
+Note, now works with BOTH ST2 and ST3! Thanks to [Daniel Shannon](https://github.com/phyllisstein) for that work.
 
 ## Installation
 
@@ -13,7 +15,7 @@ A Sublime Text 3 plug-in to allow creating any kind of project from your own cus
 
 ### Manually:
 
-Clone or download this project into a folder named "STProjectMaker" in your Sublime Text 3 Packages folder. If you're not sure where your Packages folder is, use menu `Preferences/Browse Packages...`
+Clone or download this project into a folder named "STProjectMaker" in your Sublime Text 2 or 3 Packages folder. If you're not sure where your Packages folder is, use menu `Preferences/Browse Packages...`
 
 ## Usage
 
@@ -92,6 +94,6 @@ Obviously, you don't want to try to do token replacement in binary files. The pl
 
 Todd Anderson (http://custardbelly.com/blog/) has created an additional configuration feature that I have added to the project. This allows additional functions to be run after the project is created to perform additional tasks. 
 
-The one task it is currently capable of performing is downloading files and adding them to your project. This can be useful if you want every project you create to have the latest version of a particular library such as jQuery. The files to download are defined with a `config.json` file in the template. You can see an example of how this works in the `AppRequire.js` template. Known issue: the file task will fail on https urls under Linux. This is because the version of Python bundled with Sublime Text 3 under Linux does not include the ssl module for reasons I am not quite clear on.
+The one task it is currently capable of performing is downloading files and adding them to your project. This can be useful if you want every project you create to have the latest version of a particular library such as jQuery. The files to download are defined with a `config.json` file in the template. You can see an example of how this works in the `AppRequire.js` template. Known issue: the file task will fail on https urls under Linux. This is because the version of Python bundled with Sublime Text under Linux does not include the ssl module for reasons I am not quite clear on.
 
 Note that if your template does not have a `config.json` file, this step will be ignored. Additional tasks can be created following the current example. Thus, it is sort of plug-in for a plug-in.
