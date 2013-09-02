@@ -27,16 +27,17 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 		return [f[1] for f in sorted(files)]
 
 	def on_template_chosen(self, index):
-		self.chosen_template_name = self.template_names[index]
-		self.chosen_template_path = os.path.join(self.templates_path, self.chosen_template_name)
-		self.get_project_path()
+		if index > -1:
+			self.chosen_template_name = self.template_names[index]
+			self.chosen_template_path = os.path.join(self.templates_path, self.chosen_template_name)
+			self.get_project_path()
 
 	def get_project_path(self):
 		self.project_name = "My" + self.chosen_template_name + "Project"
 		if sublime.platform() == "windows":
-			default_project_path = os.path.expanduser("~\\My Documents\\" + self.project_name)
+			default_project_path = os.path.expanduser("~\\My Documents\\project_name")
 		else:
-			default_project_path = os.path.expanduser("~/Documents/" + self.project_name)
+			default_project_path = os.path.expanduser("~/Documents/project_name")
 		self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
 
 	def on_project_path(self, path):
