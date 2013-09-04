@@ -74,7 +74,7 @@ There are three predefined tokens:
 
 `${project_path}` in text files will be replaced by the absolute path of the new project directory. This will always use forward slashes ("/") as path separators, even on Windows. Windows will generally use either forward or backslashes.
 
-`${project_path_escaped}` is the same as `${project_path}` but a double backslash ("\\") will be used for path separation.
+`${project_path_escaped}` is the same as `${project_path}` but on Windows only, a double backslash ("\\\\") will be used for path separation.
 
 `${project_name}` in text files or `_project_name_` as a file name will be replaced by the base name of the project directory.
 
@@ -83,6 +83,8 @@ Example:
 Project path is `/foo/bar/baz/MyProject/`
 
 `project_path` will be replaced by `/foo/bar/baz/MyProject/`
+
+`project_path_escaped` would be the same as `project_path` on OS X or Linux, but on Windows would be `c:\\\\foo\\\\bar\\\\baz\\\\MyProject\\\\`
 
 `project_name` will be replaced by `MyProject`
 
