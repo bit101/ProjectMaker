@@ -35,12 +35,14 @@ Newly created project folder will open in system file manager.
 
 A template is simply a folder stored in `<sublime packages dir>/STProjectMaker/Templates/`. It can contain any number and types of files and nested folders of files.
 
-If you want to store your templates in a different place, add a "template_path" property to STProjectMaker.sublime-settings in the form:
+It is highly recommended to store your templates in a different directory however - somewhere outside of the STProjectMaker directory. This way your templates will not be lost if you uninstall the plugin.
+
+To do this, add a "template_path" property to your settings as described below in the "Settings" section. This would look like the following:
 	{
 		"template_path": "path/to/your/templates/"
 	}
 	
-There are a few sample templates in the Sample-Templates directory. You can just copy those into Templates to use them.
+There are a few sample templates in the Sample-Templates directory. You can just copy those into your template dir to use them.
 
 ### Tokens
 
@@ -68,9 +70,11 @@ when supplied with a value of `data` for the `info_file` token will become:
 
 ### Predefined Tokens
 
-There are two predefined tokens:
+There are three predefined tokens:
 
-`${project_path}` in text files will be replaced by the absolute path of the new project directory.
+`${project_path}` in text files will be replaced by the absolute path of the new project directory. This will always use forward slashes ("/") as path separators, even on Windows. Windows will generally use either forward or backslashes.
+
+`${project_path_escaped}` is the same as `${project_path}` but a double backslash ("\\") will be used for path separation.
 
 `${project_name}` in text files or `_project_name_` as a file name will be replaced by the base name of the project directory.
 
@@ -81,6 +85,18 @@ Project path is `/foo/bar/baz/MyProject/`
 `project_path` will be replaced by `/foo/bar/baz/MyProject/`
 
 `project_name` will be replaced by `MyProject`
+
+### Settings
+
+You can access STProjectMaker setting via the menu `Preferences / Package Settings / Project Maker` and then `Settings - Default` or `Settings - User`. Generally you should leave the default settings as-is and add your own settings to user settings.
+
+The available settings are:
+
+`non_parsed_ext` This is a list of file extensions that will not be parsed for token replacement. Files matching these extensions will still be copied to your project however.
+
+`non_parsed_files` This is a list of individual file names that will not be parsed for token replacement. Currently this includes `build.xml` as Ant build files will generally have tokens in the same format as STProjectMaker tokens and STProjectMaker will try to replace these. Files matching these non-parsed file names will still be copied to the new project.
+
+`template_path` As described above. This is the path where STProjectMaker will look for your templates. It is best to set this to something outside of the STProjectMaker directory so updates/upgrades/reinstalls will not delete or overwrite your templates.
 
 ### Sublime Project files
 
