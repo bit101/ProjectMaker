@@ -1,5 +1,5 @@
 {
-	"non_parsed": [
+	"non_parsed_ext": [
 		".jpg", 
 		".jpeg",
 		".tiff",
@@ -53,5 +53,7 @@
 		".otf",
 		".woff"
 
-	]
+	],
+	
+	"non_parsed_files": ["build.xml"]
 }

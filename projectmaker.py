@@ -9,7 +9,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
     def run(self):
         settings = sublime.load_settings("STProjectMaker.sublime-settings")
         templates_path_setting = settings.get('template_path')
-        self.non_parsed = settings.get("non_parsed")
+        self.non_parsed_ext = settings.get("non_parsed_ext")
+        self.non_parsed_files = settings.get("non_parsed_files")
         self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
         if not templates_path_setting:
             self.templates_path = os.path.join(self.plugin_path, "Templates")
@@ -38,13 +39,14 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def get_project_path(self):
         if sublime.platform() == "windows":
-            default_project_path = os.path.expanduser("~\\My Documents\\project_name")
+            default_project_path = os.path.expanduser("~\\My Documents\\project_name").replace("\\", "/")
         else:
             default_project_path = os.path.expanduser("~/Documents/project_name")
         self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
 
     def on_project_path(self, path):
         self.project_path = path
+        self.project_path_escaped = path.replace("/", "\\\\\\\\")
         self.project_name = os.path.basename(self.project_path)
 
         if os.path.exists(self.project_path):
@@ -69,8 +71,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
     def get_tokens_from_path(self, path):
         files = os.listdir(path)
         for file_name in files:
+            if file_name in self.non_parsed_files:
+                continue
             ext = os.path.splitext(file_name)[1];
-            if ext in self.non_parsed:
+            if ext in self.non_parsed_ext:
                 continue
             file_path = os.path.join(path, file_name)
             self.get_token_from_file_name(path, file_name)
@@ -114,6 +118,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             # built-in values (may need to extract these):
             if token == "project_path":
                 self.token_values.append((token, self.project_path))
+                self.token_index += 1
+                self.get_next_token_value()
+            elif token == "project_path_escaped":
+                self.token_values.append((token, self.project_path_escaped))
                 self.token_index += 1
                 self.get_next_token_value()
             elif token == "project_name":
