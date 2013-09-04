@@ -84,7 +84,7 @@ Project path is `/foo/bar/baz/MyProject/`
 
 `project_path` will be replaced by `/foo/bar/baz/MyProject/`
 
-`project_path_escaped` would be the same as `project_path` on OS X or Linux, but on Windows would be `c:\\\\foo\\\\bar\\\\baz\\\\MyProject\\\\`
+`project_path_escaped` would be the same as `project_path` on OS X or Linux, but on Windows would be `c:\\foo\\bar\\baz\\\\MyProject\\`
 
 `project_name` will be replaced by `MyProject`
 
