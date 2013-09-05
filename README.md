@@ -44,6 +44,8 @@ Alternately, you can  add a "template_path" property to your settings to tell ST
 	
 There are a few sample templates in the Sample-Templates directory. You can just copy those into your template dir to use them.
 
+There is another repository, [https://github.com/bit101/STProjectMaker-templates](https://github.com/bit101/STProjectMaker-templates) that will be used to host additional templates created by other users.
+
 ### Tokens
 
 Text files in the template may contain replaceable tokens in the form of `${token_name}`. When you create a new project, you will be prompted for values to use for each token found. The same token can be used multiple times in multiple files. You will only be prompted a single time for its value.
