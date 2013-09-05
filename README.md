@@ -100,6 +100,10 @@ The available settings are:
 
 `template_path` As described above. This is the path where STProjectMaker will look for your templates. It is best to set this to something outside of the STProjectMaker directory so updates/upgrades/reinstalls will not delete or overwrite your templates.
 
+`project_files_folder` This is the path where STProjectMaker will save the `.sublime-project` file. This defaults to the project path.
+
+`default_project_path` This is the path that is displayed by default when STProjectMaker asks for the Project Location. This defaults to "~/Documents/project_name" and "~\My Documents\project_name" for Windows.
+
 ### Sublime Project files
 
 If the chosen template has a `.sublime-project` file in the top level, that file will be copied over and processed like any other file in the template. However, if this does not exist, a default `.sublime-project` file will be created using the `project_name` token as its base name. 

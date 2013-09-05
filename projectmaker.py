@@ -9,6 +9,17 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
     def run(self):
         settings = sublime.load_settings("STProjectMaker.sublime-settings")
         templates_path_setting = settings.get('template_path')
+        default_project_path_setting = settings.get('default_project_path')
+
+        if not default_project_path_setting:
+            if sublime.platform() == "windows":
+                self.default_project_path = os.path.expanduser("~\\My Documents\\project_name").replace("\\", "/")
+            else:
+                self.default_project_path = os.path.expanduser("~/Documents/project_name")
+        else:
+            self.default_project_path = default_project_path_setting
+
+        self.project_files_folder = settings.get('project_files_folder')
         self.non_parsed_ext = settings.get("non_parsed_ext")
         self.non_parsed_files = settings.get("non_parsed_files")
         self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
@@ -38,11 +49,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             self.get_project_path()
 
     def get_project_path(self):
-        if sublime.platform() == "windows":
-            default_project_path = os.path.expanduser("~\\My Documents\\project_name").replace("\\", "/")
-        else:
-            default_project_path = os.path.expanduser("~/Documents/project_name")
-        self.window.show_input_panel("Project Location:", default_project_path, self.on_project_path, None, None)
+        self.window.show_input_panel("Project Location:", self.default_project_path, self.on_project_path, None, None)
 
     def on_project_path(self, path):
         self.project_path = path
@@ -186,13 +193,18 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def create_project_file(self):
         file_name = self.project_name + ".sublime-project"
-        self.project_file = os.path.join(self.project_path, file_name)
+        
+        if not self.project_files_folder:
+            self.project_file = os.path.join(self.project_path, file_name)
+        else:
+            self.project_file = os.path.join(self.project_files_folder, file_name)
+
         file_ref = open(self.project_file, "w")
         file_ref.write(("{\n"
                         "    \"folders\":\n"
                         "    [\n"
                         "        {\n"
-                        "            \"path\": \".\"\n"
+                        "            \"path\": \""+self.project_path+"\"\n"
                         "        }\n"
                         "    ]\n"
                         "}\n"));
