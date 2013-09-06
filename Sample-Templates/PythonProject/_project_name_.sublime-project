@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"path": "${project_path}"
+		}
+	],
+
+	"build_systems":
+	[
+		{
+			"name": "PythonBuild",
+			"cmd": ["python", "$project_path/main.py"]
+		}
+	]
+}

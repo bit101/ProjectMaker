@@ -1,0 +1,1 @@
+Set Build System to "PythonBuild" (Menu: Tools => Build System => PythonBuild)
