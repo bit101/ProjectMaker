@@ -55,5 +55,8 @@
 
 	],
 	
-	"non_parsed_files": ["build.xml"]
+	"non_parsed_files": [
+	    ".DS_Store",
+	    "build.xml"
+	]
 }
