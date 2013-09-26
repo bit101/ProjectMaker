@@ -46,7 +46,18 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         if index > -1:
             self.chosen_template_name = self.template_names[index]
             self.chosen_template_path = os.path.join(self.templates_path, self.chosen_template_name)
-            self.get_project_path()
+            if not self.project_files_folder:
+                self.project_name = ""
+                self.get_project_path()
+            else:
+                self.get_project_name()
+
+    def get_project_name(self):
+        self.window.show_input_panel("Project Name:", "", self.on_project_name, None, None)
+
+    def on_project_name(self, name):
+        self.project_name = name
+        self.get_project_path()
 
     def get_project_path(self):
         self.window.show_input_panel("Project Location:", self.default_project_path, self.on_project_path, None, None)
@@ -54,7 +65,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
     def on_project_path(self, path):
         self.project_path = path
         self.project_path_escaped = path.replace("/", "\\\\\\\\")
-        self.project_name = os.path.basename(self.project_path)
+        if self.project_name == "":
+            self.project_name = os.path.basename(self.project_path)
 
         if os.path.exists(self.project_path):
             sublime.error_message("Something already exists at " + self.project_path)
@@ -193,7 +205,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def create_project_file(self):
         file_name = self.project_name + ".sublime-project"
-        
+
         if not self.project_files_folder:
             self.project_file = os.path.join(self.project_path, file_name)
         else:
