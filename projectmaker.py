@@ -1,4 +1,4 @@
-import sublime, sublime_plugin, os, shutil, re
+import sublime, sublime_plugin, os, shutil, re, codecs
 __ST3 = int(sublime.version()) >= 3000
 if __ST3:
     from STProjectMaker.configuration import ConfigurationReader
@@ -59,7 +59,17 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         if os.path.exists(self.project_path):
             sublime.error_message("Something already exists at " + self.project_path)
         else:
-            self.create_project()
+            if not self.project_files_folder:
+                self.create_project()
+            else:
+                self.get_project_name()
+
+    def get_project_name(self):
+        self.window.show_input_panel("Project Name:", self.project_name, self.on_project_name, None, None)
+
+    def on_project_name(self, name):
+        self.project_name = name
+        self.create_project()
 
     def create_project(self):
         self.copy_project()
@@ -99,10 +109,36 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             if not token in self.tokens:
                 self.tokens.append(token)
 
+    def open_file(self, file_path, mode = "r", return_content = True):
+        has_exception = False
+        try:
+            file_ref = codecs.open(file_path, mode, "utf-8")
+            content = file_ref.read()
+            if return_content == True:
+                file_ref.close()
+                return content
+            else:
+                return file_ref
+        except UnicodeDecodeError as e:
+            has_exception = True
+        
+        try:
+            file_ref = codecs.open(file_path, mode, "latin-1")
+            content = file_ref.read()
+            if return_content == True:
+                file_ref.close()
+                return content
+            else:
+                return file_ref
+        except UnicodeDecodeError as e:
+            has_exception = True
+
+        sublime.error_message("Could not open " + file_path)
+
     def get_tokens_from_file(self, file_path):
-        file_ref = open(file_path, "rU")
-        content = file_ref.read()
-        file_ref.close()
+        content = self.open_file(file_path)
+        if content is None:
+            return;
 
         r = re.compile(r"\${[^}]*}")
         matches = r.findall(content)
@@ -158,16 +194,16 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         for file_path in self.tokenized_files:
             self.replace_tokens_in_file(file_path)
 
-    def replace_tokens_in_file(self, file_path):
-        file_ref = open(file_path, "rU")
-        template = file_ref.read()
-        file_ref.close()
-
+    def replace_tokens_in_file(self, file_path):        
+        template = self.open_file(file_path)
+        if template is None:
+            return;
+            
         for token, value in self.token_values:
             r = re.compile(r"\${" + token + "}")
             template = r.sub(value, template)
 
-        file_ref = open(file_path, "w")
+        file_ref = self.open_file(file_path, "w+", False)
         file_ref.write(template)
         file_ref.close()
 
@@ -193,7 +229,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def create_project_file(self):
         file_name = self.project_name + ".sublime-project"
-        
+
         if not self.project_files_folder:
             self.project_file = os.path.join(self.project_path, file_name)
         else:
