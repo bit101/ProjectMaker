@@ -77,7 +77,6 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             )
             if decision:
                 self.create_project()
-            # sublime.error_message("Something already exists at " + self.project_path)
         else:
             if not self.project_files_folder:
                 self.create_project()
