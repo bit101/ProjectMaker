@@ -35,14 +35,14 @@ Newly created project folder will open in system file manager.
 
 A template is simply a folder that can contain any number and types of files and nested folders of files.
 
-By default now, templates are looked for in a folder named `STProjectMakerTemplates` in your home directory. You will have to create this folder and add your templates there.
+There are a few sample templates in the Sample-Templates directory. You can just copy those into your template dir to use them.
+
+By default, templates are looked for in a folder named `STProjectMakerTemplates` in your home directory, you will have to create this folder and add your templates there. If no STProjectMakerTemplates exists, then `Sample-Templates` folder in plugin directory is used.
 
 Alternately, you can  add a "template_path" property to your settings to tell STProjectMaker where to look for your templates. This is described below in the "Settings" section and would look like the following:
 	{
 		"template_path": "path/to/your/templates/"
 	}
-	
-There are a few sample templates in the Sample-Templates directory. You can just copy those into your template dir to use them.
 
 There is another repository, [https://github.com/bit101/STProjectMaker-templates](https://github.com/bit101/STProjectMaker-templates) that will be used to host additional templates created by other users.
 
