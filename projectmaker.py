@@ -40,7 +40,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             else:
                 self.templates_path = os.path.join(self.plugin_path, "Sample-Templates")
         else:
-            self.templates_path = os.path.abspath(templates_path_setting)
+            self.templates_path = os.path.abspath(os.path.expanduser(templates_path_setting))
         self.template_names = []
         self.choose_template()
 
