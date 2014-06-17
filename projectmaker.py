@@ -34,11 +34,11 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         self.existing_names = []
         self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
         if not templates_path_setting:
-            templates_path = os.path.expanduser("~/STProjectMakerTemplates")
+            templates_path = os.path.expanduser(os.path.join("~", "STProjectMakerTemplates"))
             if os.path.exists(templates_path):
                 self.templates_path = templates_path
             else:
-                self.templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Sample-Templates")
+                self.templates_path = os.path.join(self.plugin_path, "Sample-Templates")
         else:
             self.templates_path = os.path.abspath(templates_path_setting)
         self.template_names = []
