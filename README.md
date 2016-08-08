@@ -11,7 +11,7 @@ Note, now works with BOTH ST2 and ST3! Thanks to [Daniel Shannon](https://github
 
 1. Install Package Control from http://wbond.net/sublime_packages/package_control
 
-2. From within Package Control, look for STPackageMaker and install.
+2. From within Package Control, look for STProjectMaker and install.
 
 ### Manually:
 
