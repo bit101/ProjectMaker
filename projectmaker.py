@@ -6,6 +6,7 @@ import shutil
 import sublime
 import sublime_plugin
 
+import subprocess
 
 __ST3 = int(sublime.version()) >= 3000
 if __ST3:
@@ -13,6 +14,20 @@ if __ST3:
 else:
     from configuration import ConfigurationReader
 
+def subl(args=[]):
+    # learnt from SideBarEnhancements
+    executable_path = sublime.executable_path()
+    if sublime.platform() == 'osx':
+        app_path = executable_path[:executable_path.rfind(".app/") + 5]
+        executable_path = app_path + "Contents/SharedSupport/bin/subl"
+    subprocess.Popen([executable_path] + args)
+    if sublime.platform() == "windows":
+        def fix_focus():
+            window = sublime.active_window()
+            view = window.active_view()
+            window.run_command('focus_neighboring_group')
+            window.focus_view(view)
+        sublime.set_timeout(fix_focus, 300)
 
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
     def run(self):
@@ -225,7 +240,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         self.rename_files()
         self.find_project_file()
         self.read_configuration()
-        self.window.run_command("open_dir", {"dir":self.project_path})
+        subl(["-n", self.project_file])
+        #self.window.run_command("open_dir", {"dir":self.project_path})
 
     def replace_tokens(self):
         for file_path in self.tokenized_files:
