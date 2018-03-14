@@ -224,7 +224,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         self.replace_tokens()
         self.rename_files()
         self.find_project_file()
-        self.read_configuration()
+        self.exec_tasks()
         self.window.run_command("open_dir", {"dir":self.project_path})
 
     def replace_tokens(self):
@@ -235,7 +235,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         template = self.open_file(file_path)
         if template is None:
             return
-            
+
         for token, value in self.token_values:
             r = re.compile(r"\${" + token + "}")
             template = r.sub(value, template)
@@ -283,8 +283,29 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
                         "}\n"));
         file_ref.close()
 
-    def read_configuration(self):
+    def exec_tasks(self):
         config_file = os.path.join(self.chosen_template_path, 'config.json')
         if os.path.exists(config_file):
-            ConfigurationReader().read(config_file, self.project_path)
+            tasks = sublime.decode_value(sublime.load_resource(config_file))
+            for t in tasks:
+                exec_args = {"working_dir": self.project_path}
+                exec_args.update(t)
+                sublime.run_command("exec", exec_args)
+
+
+#             exec
+# Runs an external process asynchronously. On Windows, GUIs are supressed.
+
+# exec is the default command used by build systems, thus it provides similar functionality. However, a few options in build systems are taken care of by Sublime Text internally so they list below only contains parameters accepted by this command.
+
+# cmd [[String]]
+# file_regex [String]
+# line_regex [String]
+# working_dir [String]
+# encoding [String]
+# env [{String: String}]
+# path [String]
+# shell [Bool]
+# kill [Bool]: If True will simply terminate the current build process. This is invoked via Build: Cancel command from the Command Palette.
+# quiet [Bool]: If True information less running about prints the command.
 
