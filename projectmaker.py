@@ -21,12 +21,9 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         default_project_path_setting = settings.get('default_project_path')
 
         if not default_project_path_setting:
-            if sublime.platform() == "windows":
-                self.default_project_path = os.path.expanduser("~\\project_name").replace("\\", "/")
-            else:
-                self.default_project_path = os.path.expanduser("~/project_name")
+            self.default_project_path = os.path.normpath(os.path.expanduser("~/project_name"))
         else:
-            self.default_project_path = default_project_path_setting
+            self.default_project_path = os.path.normpath(os.path.expanduser(default_project_path_setting))
 
         self.project_files_folder = settings.get('project_files_folder')
         self.non_parsed_ext = settings.get("non_parsed_ext")
@@ -40,7 +37,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             else:
                 self.templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Sample-Templates")
         else:
-            self.templates_path = os.path.abspath(templates_path_setting)
+            self.templates_path = os.path.normpath(os.path.expanduser(templates_path_setting))
         self.template_names = []
         self.choose_template()
 
