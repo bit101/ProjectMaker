@@ -7,13 +7,6 @@ import sublime
 import sublime_plugin
 
 
-__ST3 = int(sublime.version()) >= 3000
-if __ST3:
-    from STProjectMaker.configuration import ConfigurationReader
-else:
-    from configuration import ConfigurationReader
-
-
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
     def run(self):
         settings = sublime.load_settings("STProjectMaker.sublime-settings")
@@ -284,13 +277,17 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         file_ref.close()
 
     def exec_tasks(self):
-        config_file = os.path.join(self.chosen_template_path, 'config.json')
+        config_file = os.path.join(self.chosen_template_path, "config.json")
         if os.path.exists(config_file):
             tasks = sublime.decode_value(sublime.load_resource(config_file))
             for t in tasks:
-                exec_args = {"working_dir": self.project_path}
+                exec_args = {
+                    "target": "exec",
+                    "working_dir": self.project_path
+                }
                 exec_args.update(t)
-                sublime.run_command("exec", exec_args)
+                target = exec_args.pop("target")
+                sublime.run_command(target, exec_args)
 
 
 #             exec
