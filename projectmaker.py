@@ -1,25 +1,18 @@
+import codecs
 import os
 import re
-import codecs
 import shutil
 
 import sublime
 import sublime_plugin
 
 
-__ST3 = int(sublime.version()) >= 3000
-if __ST3:
-    from STProjectMaker.configuration import ConfigurationReader
-else:
-    from configuration import ConfigurationReader
-
-
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
+
     def run(self):
         settings = sublime.load_settings("STProjectMaker.sublime-settings")
         templates_path_setting = settings.get('template_path')
         default_project_path_setting = settings.get('default_project_path')
-
         if not default_project_path_setting:
             self.default_project_path = os.path.normpath(os.path.expanduser("~/project_name"))
         else:
@@ -35,7 +28,9 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             if os.path.exists(templates_path):
                 self.templates_path = templates_path
             else:
-                self.templates_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Sample-Templates")
+                self.templates_path = os.path.join(
+                    os.path.dirname(os.path.abspath(__file__)), "Sample-Templates"
+                )
         else:
             self.templates_path = os.path.normpath(os.path.expanduser(templates_path_setting))
         self.template_names = []
@@ -56,23 +51,28 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
     def on_template_chosen(self, index):
         if index > -1:
             self.chosen_template_name = self.template_names[index]
-            self.chosen_template_path = os.path.join(self.templates_path, self.chosen_template_name)
+            self.chosen_template_path = os.path.join(
+                self.templates_path, self.chosen_template_name
+            )
             self.get_project_path()
 
     def get_project_path(self):
-        self.window.show_input_panel("Project Location:",
-                                     self.default_project_path,
-                                     self.on_project_path,
-                                     None, None)
+        self.window.show_input_panel(
+            "Project Location:",
+            self.default_project_path,
+            self.on_project_path,
+            None,
+            None,
+        )
 
     def on_project_path(self, path):
         self.project_path = path
         self.project_path_escaped = path.replace("/", "\\\\\\\\")
         self.project_name = os.path.basename(self.project_path)
-
         if os.path.exists(self.project_path):
             decision = sublime.ok_cancel_dialog(
-                "Something already exists at " + self.project_path +
+                "Something already exists at " +
+                self.project_path +
                 ".\nDo you want to create project in that folder?" +
                 "\n(Existing objects will not be overwritten)"
             )
@@ -85,7 +85,9 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
                 self.get_project_name()
 
     def get_project_name(self):
-        self.window.show_input_panel("Project Name:", self.project_name, self.on_project_name, None, None)
+        self.window.show_input_panel(
+            "Project Name:", self.project_name, self.on_project_name, None, None
+        )
 
     def on_project_name(self, name):
         self.project_name = name
@@ -124,9 +126,11 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         for file_name in files:
             if file_name in self.non_parsed_files or file_name in self.existing_names:
                 continue
+
             ext = os.path.splitext(file_name)[1]
             if ext in self.non_parsed_ext:
                 continue
+
             file_path = os.path.join(path, file_name)
             self.get_token_from_file_name(path, file_name)
             if os.path.isdir(file_path):
@@ -136,10 +140,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def get_token_from_file_name(self, path, file_name):
         dot_index = file_name.find(".")
-        if file_name[0:1] == "_" and file_name[dot_index-1:dot_index] == "_":
+        if file_name[0:1] == "_" and file_name[dot_index - 1:dot_index] == "_":
             file_path = os.path.join(path, file_name)
             self.tokenized_titles.append(file_path)
-            token = file_name[1:dot_index-1]
+            token = file_name[1: dot_index - 1]
             if not token in self.tokens:
                 self.tokens.append(token)
 
@@ -151,22 +155,24 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             if return_content:
                 file_ref.close()
                 return content
+
             else:
                 return file_ref
+
         except UnicodeDecodeError as e:
             has_exception = True
-
         try:
             file_ref = codecs.open(file_path, mode, "latin-1")
             content = file_ref.read()
             if return_content:
                 file_ref.close()
                 return content
+
             else:
                 return file_ref
+
         except UnicodeDecodeError as e:
             has_exception = True
-
         sublime.error_message("Could not open " + file_path)
 
     def get_tokens_from_file(self, file_path):
@@ -207,7 +213,13 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
                 self.get_next_token_value()
             # custom token. get value from user:
             else:
-                self.window.show_input_panel("Value for token \"" + token + "\"", "", self.on_token_value, None, None)
+                self.window.show_input_panel(
+                    "Value for token \"" + token + "\"",
+                    "",
+                    self.on_token_value,
+                    None,
+                    None,
+                )
         else:
             # all done. do replacements
             self.customize_project()
@@ -221,8 +233,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         self.replace_tokens()
         self.rename_files()
         self.find_project_file()
-        self.read_configuration()
-        self.window.run_command("open_dir", {"dir":self.project_path})
+        self.exec_tasks()
+        self.window.run_command("open_dir", {"dir": self.project_path})
 
     def replace_tokens(self):
         for file_path in self.tokenized_files:
@@ -232,11 +244,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         template = self.open_file(file_path)
         if template is None:
             return
-            
+
         for token, value in self.token_values:
             r = re.compile(r"\${" + token + "}")
             template = r.sub(value, template)
-
         file_ref = self.open_file(file_path, "w+", False)
         file_ref.write(template)
         file_ref.close()
@@ -263,25 +274,35 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def create_project_file(self):
         file_name = self.project_name + ".sublime-project"
-
         if not self.project_files_folder:
             self.project_file = os.path.join(self.project_path, file_name)
         else:
             self.project_file = os.path.join(self.project_files_folder, file_name)
-
         file_ref = open(self.project_file, "w")
-        file_ref.write(("{\n"
-                        "    \"folders\":\n"
-                        "    [\n"
-                        "        {\n"
-                        "            \"path\": \""+self.project_path+"\"\n"
-                        "        }\n"
-                        "    ]\n"
-                        "}\n"));
+        file_ref.write(
+            (
+                "{\n"
+                "    \"folders\":\n"
+                "    [\n"
+                "        {\n"
+                "            \"path\": \"" + self.project_path + "\"\n"
+                "        }\n"
+                "    ]\n"
+                "}\n"
+            )
+        )
         file_ref.close()
 
-    def read_configuration(self):
-        config_file = os.path.join(self.chosen_template_path, 'config.json')
+    def exec_tasks(self):
+        config_file = os.path.join(self.chosen_template_path, "config.json")
         if os.path.exists(config_file):
-            ConfigurationReader().read(config_file, self.project_path)
-
+            tasks = sublime.decode_value(sublime.load_resource(config_file))
+            for t in tasks:
+                exec_args = {
+                    "target": "exec",
+                    "shell": True,
+                    "working_dir": self.project_path
+                }
+                exec_args.update(t)
+                target = exec_args.pop("target")
+                sublime.run_command(target, exec_args)
