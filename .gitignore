@@ -113,7 +113,7 @@ venv.bak/
 
 # Project files should be checked into the repository, unless a significant
 # proportion of contributors will probably not be using Sublime Text
-# *.sublime-project
+*.sublime-project
 
 # SFTP configuration file
 sftp-config.json
@@ -133,3 +133,4 @@ bh_unicode_properties.cache
 # Sublime-github package stores a github token in this file
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
+
