@@ -1,48 +1,47 @@
 [
-    {
-        "id": "project",
-        "children":
-        [
-            {
-                "caption": "Create project",
-                "id": "create_project",
-                "command": "project_maker"
-            }
+  {
+    "id": "project",
+    "children": [
+      {
+        "caption": "Create project",
+        "id": "create_project",
+        "command": "project_maker"
+      }
+    ]
+  },
+  {
+    "id": "preferences",
+    "children": [
+      {
+        "caption": "Package Settings",
+        "mnemonic": "P",
+        "id": "package-settings",
+        "children": [
+          {
+            "caption": "ProjectMaker",
+            "children": [
+              {
+                "caption": "README",
+                "command": "open_file",
+                "args": {
+                  "target": "${packages}/ProjectMaker/README.md"
+                }
+              },
+              {
+                "caption": "-"
+              },
+              {
+                "caption": "Settings",
+                "command": "edit_settings",
+                "args": {
+                  "base_file": "${packages}/ProjectMaker/ProjectMaker.sublime-settings",
+                  "default": "{\n\t$0\n}\n"
+                }
+              }
+            ]
+          }
         ]
-    },
-    {
-        "id": "preferences",
-        "children":
-        [
-            {
-                "caption": "Package Settings",
-                "id": "package-settings",
-                "children":
-                [
-                    {
-                        "caption": "Project Maker",
-                        "children":
-                        [
-                            {
-                                "caption": "Settings – Default",
-                                "command": "open_file",
-                                "args":
-                                {
-                                    "file": "${packages}/STProjectMaker/STProjectMaker.sublime-settings"
-                                }
-                            },
-                            {
-                                "caption": "Settings – User",
-                                "command": "open_file",
-                                "args":
-                                {
-                                    "file": "${packages}/User/STProjectMaker.sublime-settings"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+      }
+    ]
+  }
 ]
