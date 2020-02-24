@@ -149,11 +149,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             file_path = os.path.join(path, file_name)
             self.tokenized_titles.append(file_path)
             token = file_name[1 : dot_index - 1]
-            if not token in self.tokens:
+            if token not in self.tokens:
                 self.tokens.append(token)
 
     def open_file(self, file_path, mode="r", return_content=True):
-        has_exception = False
         try:
             file_ref = codecs.open(file_path, mode, "utf-8")
             content = file_ref.read()
@@ -164,8 +163,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             else:
                 return file_ref
 
-        except UnicodeDecodeError as e:
-            has_exception = True
+        except UnicodeDecodeError:
+            pass
         try:
             file_ref = codecs.open(file_path, mode, "latin-1")
             content = file_ref.read()
@@ -176,8 +175,8 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             else:
                 return file_ref
 
-        except UnicodeDecodeError as e:
-            has_exception = True
+        except UnicodeDecodeError:
+            pass
         sublime.error_message("Could not open " + file_path)
 
     def get_tokens_from_file(self, file_path):
@@ -191,7 +190,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             self.tokenized_files.append(file_path)
         for match in matches:
             token = match[2:-1]
-            if not token in self.tokens:
+            if token not in self.tokens:
                 self.tokens.append(token)
 
     def get_token_values(self):
