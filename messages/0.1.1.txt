@@ -1,0 +1,2 @@
+Keybindings changed to not overlap inbuilt sequences.
+Please check ProjectMaker's keybinding files to learn more.
