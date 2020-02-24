@@ -8,17 +8,20 @@ import sublime_plugin
 
 
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
-
     def run(self):
         settings = sublime.load_settings("ProjectMaker.sublime-settings")
-        templates_path_setting = settings.get('template_path')
-        default_project_path_setting = settings.get('default_project_path')
+        templates_path_setting = settings.get("template_path")
+        default_project_path_setting = settings.get("default_project_path")
         if not default_project_path_setting:
-            self.default_project_path = os.path.normpath(os.path.expanduser("~/project_name"))
+            self.default_project_path = os.path.normpath(
+                os.path.expanduser("~/project_name")
+            )
         else:
-            self.default_project_path = os.path.normpath(os.path.expanduser(default_project_path_setting))
+            self.default_project_path = os.path.normpath(
+                os.path.expanduser(default_project_path_setting)
+            )
 
-        self.project_files_folder = settings.get('project_files_folder')
+        self.project_files_folder = settings.get("project_files_folder")
         self.non_parsed_ext = settings.get("non_parsed_ext")
         self.non_parsed_files = settings.get("non_parsed_files")
         self.existing_names = []
@@ -32,7 +35,9 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
                     os.path.dirname(os.path.abspath(__file__)), "Sample-Templates"
                 )
         else:
-            self.templates_path = os.path.normpath(os.path.expanduser(templates_path_setting))
+            self.templates_path = os.path.normpath(
+                os.path.expanduser(templates_path_setting)
+            )
         self.template_names = []
         self.choose_template()
 
@@ -71,10 +76,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         self.project_name = os.path.basename(self.project_path)
         if os.path.exists(self.project_path):
             decision = sublime.ok_cancel_dialog(
-                "Something already exists at " +
-                self.project_path +
-                ".\nDo you want to create project in that folder?" +
-                "\n(Existing objects will not be overwritten)"
+                "Something already exists at "
+                + self.project_path
+                + ".\nDo you want to create project in that folder?"
+                + "\n(Existing objects will not be overwritten)"
             )
             if decision:
                 self.create_project()
@@ -140,10 +145,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def get_token_from_file_name(self, path, file_name):
         dot_index = file_name.find(".")
-        if file_name[0:1] == "_" and file_name[dot_index - 1:dot_index] == "_":
+        if file_name[0:1] == "_" and file_name[dot_index - 1 : dot_index] == "_":
             file_path = os.path.join(path, file_name)
             self.tokenized_titles.append(file_path)
-            token = file_name[1: dot_index - 1]
+            token = file_name[1 : dot_index - 1]
             if not token in self.tokens:
                 self.tokens.append(token)
 
@@ -214,7 +219,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
             # custom token. get value from user:
             else:
                 self.window.show_input_panel(
-                    "Value for token \"" + token + "\"",
+                    'Value for token "' + token + '"',
                     "",
                     self.on_token_value,
                     None,
@@ -282,10 +287,10 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         file_ref.write(
             (
                 "{\n"
-                "    \"folders\":\n"
+                '    "folders":\n'
                 "    [\n"
                 "        {\n"
-                "            \"path\": \"" + self.project_path + "\"\n"
+                '            "path": "' + self.project_path + '"\n'
                 "        }\n"
                 "    ]\n"
                 "}\n"
@@ -301,7 +306,7 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
                 exec_args = {
                     "target": "exec",
                     "shell": True,
-                    "working_dir": self.project_path
+                    "working_dir": self.project_path,
                 }
                 exec_args.update(t)
                 target = exec_args.pop("target")
