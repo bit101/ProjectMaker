@@ -1,5 +1,1 @@
-Full ST3 integration. Commands, keymap files, menu settings, "template_path" se
-tting to specify where you keep your templates. Package is expanded, so sample tem
-plates are installed. Also, sample templates are installed into Sample-Templates
-directory, so upgrading the package will not overwrite your existing templates in
-the Templates directory.
+`STProjectMaker` was renamed to just `ProjectMaker`.
