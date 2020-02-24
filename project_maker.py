@@ -10,7 +10,7 @@ import sublime_plugin
 class ProjectMakerCommand(sublime_plugin.WindowCommand):
 
     def run(self):
-        settings = sublime.load_settings("STProjectMaker.sublime-settings")
+        settings = sublime.load_settings("ProjectMaker.sublime-settings")
         templates_path_setting = settings.get('template_path')
         default_project_path_setting = settings.get('default_project_path')
         if not default_project_path_setting:
@@ -22,9 +22,9 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
         self.non_parsed_ext = settings.get("non_parsed_ext")
         self.non_parsed_files = settings.get("non_parsed_files")
         self.existing_names = []
-        self.plugin_path = os.path.join(sublime.packages_path(), "STProjectMaker")
+        self.plugin_path = os.path.join(sublime.packages_path(), "ProjectMaker")
         if not templates_path_setting:
-            templates_path = os.path.expanduser("~/STProjectMakerTemplates")
+            templates_path = os.path.expanduser("~/ProjectMakerTemplates")
             if os.path.exists(templates_path):
                 self.templates_path = templates_path
             else:

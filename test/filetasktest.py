@@ -1,4 +1,4 @@
-""" Unit tests for configuration.py and filetask.py from STProjectMaker project. """
+""" Unit tests for configuration.py and filetask.py from ProjectMaker project. """
 """ [NOTE] filetask module imports sublime for error handling within the Sublime Text 2 IDE. Comment references to sublime to run tests properly. """
 
 import sys, os, json, shutil, unittest
@@ -8,9 +8,9 @@ from filetask import RemoteFileFetchTask
 
 class TestConfigurationLoad(unittest.TestCase):
 	"""Testing load and parse of config.json"""
-	
+
 	configuration = None
-	
+
 	def setUp(self):
 		""" Python <2.7 psuedo setUpBeforeClass """
 		if self.__class__.configuration is None:

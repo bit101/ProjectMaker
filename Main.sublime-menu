@@ -28,7 +28,7 @@
                                 "command": "open_file",
                                 "args":
                                 {
-                                    "file": "${packages}/STProjectMaker/STProjectMaker.sublime-settings"
+                                    "file": "${packages}/ProjectMaker/ProjectMaker.sublime-settings"
                                 }
                             },
                             {
@@ -36,7 +36,7 @@
                                 "command": "open_file",
                                 "args":
                                 {
-                                    "file": "${packages}/User/STProjectMaker.sublime-settings"
+                                    "file": "${packages}/User/ProjectMaker.sublime-settings"
                                 }
                             }
                         ]
