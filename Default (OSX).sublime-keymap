@@ -1,6 +1,6 @@
 [
     {
-        "keys": ["command+shift+p"],
+        "keys": ["ctrl+shift+p"],
         "__doc__": "Create new project",
         "command": "project_maker"
     }
