@@ -267,13 +267,12 @@ class ProjectMakerCommand(sublime_plugin.WindowCommand):
                         break
 
     def find_project_file(self):
-        files = os.listdir(self.project_path)
-        r = re.compile(r".*\.sublime-project")
-        self.project_file = None
-        for file_name in files:
-            if r.search(file_name):
-                self.project_file = os.path.join(self.project_path, file_name)
-        if self.project_file is None:
+        for entry in os.walk(self.project_path):
+            files = [n for n in entry[-1] if n.endswith(".sublime-project")]
+            if files:
+                self.project_file = os.path.join(entry[0], files[0])
+                break
+        else:
             self.create_project_file()
 
     def create_project_file(self):
